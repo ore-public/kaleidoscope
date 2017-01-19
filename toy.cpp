@@ -39,4 +39,21 @@ static int gettok() {
         NumVal = strtod(NumStr.c_str(), 0);
         return tok_number;
     }
+
+    if (LastChar == '#') {
+      do LastChar = getchar();
+      while (LastChar != EOF && LastChar != '\n' && LastChar != '\r');
+
+      if (LastChar != EOF) {
+        return gettok();
+      }
+    }
+
+    if (LastChar == EOF) {
+      return tok_eof;
+    }
+
+    int ThisChar = LastChar;
+    LastChar = getchar();
+    return ThisChar;
 }
